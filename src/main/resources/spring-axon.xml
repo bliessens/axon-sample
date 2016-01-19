@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:axon="http://www.axonframework.org/schema/core"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.axonframework.org/schema/core http://www.axonframework.org/schema/axon-core.xsd">
+
+    <axon:annotation-config/>
+
+    <axon:command-bus id="commandBus" transaction-manager="transactionManager"/>
+
+    <axon:event-bus id="eventBus"/>
+
+    <!--<axon:aggregate-command-handler id="orderAggregateCommandHandlerScanner"-->
+    <!--aggregate-type="be.cegeka.viogate.order.OrderAggregate"-->
+    <!--repository="orderAggregateEventSourcingRepository" command-bus="commandBus"/>-->
+
+    <axon:event-sourcing-repository id="orderAggregateEventSourcingRepository"
+                                    event-store="jpaEventStore" event-bus="eventBus"
+                                    aggregate-type="be.cegeka.viogate.order.OrderAggregate">
+        <!--<axon:snapshotter-trigger event-count-threshold="1" snapshotter-ref="snapshotter"/>-->
+    </axon:event-sourcing-repository>
+
+    <!--<bean id="cacheManager" class="org.axonframework.cache.WeakReferenceCache"/>-->
+
+    <!--<axon:snapshotter id="snapshotter" event-store="jpaEventStore" transaction-manager="transactionManager"/>-->
+
+    <!--<axon:jpa-repository id="orderAggregateQueryRepository" aggregate-type="be.cegeka.viogate.order.OrderAggregate"-->
+    <!--event-store="jpaEventStore" entity-manager-provider="orderAggregateEntityManagerProvider"/>-->
+
+    <!--<axon:filesystem-event-store id="eventStore" base-dir="events"/>-->
+
+    <axon:jpa-event-store id="jpaEventStore" data-source="jpaDataSource"/>
+
+    <bean class="org.axonframework.commandhandling.gateway.CommandGatewayFactoryBean">
+        <property name="commandBus" ref="commandBus"/>
+    </bean>
+
+</beans>
