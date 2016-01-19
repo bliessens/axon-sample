@@ -27,6 +27,7 @@ dependencies {
 
     runtime 'org.mariadb.jdbc:mariadb-java-client:1.3.4'
     runtime 'javax.transaction:jta:1.1'
+    runtime 'org.hsqldb:hsqldb:2.3.2'
 
     testCompile "org.springframework:spring-test:$spring"
     testCompile "org.axonframework:axon-test:$axon"
