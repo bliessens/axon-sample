@@ -50,4 +50,21 @@
             <property name="password" value=""/>
         </bean>
     </beans>
+    <beans profile="db2">
+        <util:properties id="hibernate.configuration">
+            <prop key="hibernate.dialect">org.hibernate.dialect.DB2400Dialect</prop>
+            <prop key="hibernate.show_sql">true</prop>
+            <prop key="hibernate.format_sql">true</prop>
+            <prop key="hibernate.hbm2ddl.auto">create</prop>
+            <!--<prop key="hibernate.hbm2ddl.auto">validate</prop>-->
+        </util:properties>
+
+        <bean id="jpaDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+            <property name="driverClass" value="com.ibm.as400.access.AS400JDBCDriver"/>
+            <property name="jdbcUrl" value="jdbc:as400://cortex.cegekanv.corp.local/BENOIT;date format=iso"/>
+            <property name="user" value="LIMSERVER"/>
+            <property name="password" value="SERVERLIM"/>
+        </bean>
+
+    </beans>
 </beans>
