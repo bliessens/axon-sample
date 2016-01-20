@@ -38,7 +38,6 @@ public class OrderAggregate extends AbstractAnnotatedAggregateRoot {
 
     @EventHandler
     public void handle(final MicroBioSampleAddedEvent event) {
-        System.out.println("Adding MB Sample with recipient " + event.getRecipientType());
         mbSamples.add(new MicroBiologySample(event.getRecipientType(), event.getAnalyses()));
     }
 }

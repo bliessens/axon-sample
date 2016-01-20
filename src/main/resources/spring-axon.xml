@@ -9,6 +9,14 @@
 
     <axon:command-bus id="commandBus" transaction-manager="transactionManager"/>
 
+    <!--<bean id="asyncCommandBus" class="org.axonframework.commandhandling.AsynchronousCommandBus" destroy-method="shutdown">-->
+    <!--<property name="transactionManager">-->
+    <!--<bean class="org.axonframework.unitofwork.SpringTransactionManager">-->
+    <!--<constructor-arg ref="transactionManager"/>-->
+    <!--</bean>-->
+    <!--</property>-->
+    <!--</bean>-->
+
     <axon:event-bus id="eventBus"/>
 
     <!--<axon:aggregate-command-handler id="orderAggregateCommandHandlerScanner"-->

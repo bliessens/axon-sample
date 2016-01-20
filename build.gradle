@@ -27,6 +27,8 @@ repositories {
 
 dependencies {
     compile "org.axonframework:axon-core:$axon"
+    runtime "org.axonframework:axon-monitoring-jmx:$axon"
+//    compile "org.axonframework:axon-distributed-commandbus:$axon"
 //    compile "org.axonframework:axon-mongo:$axon"
 
     compile "org.springframework:spring-context:$spring"
