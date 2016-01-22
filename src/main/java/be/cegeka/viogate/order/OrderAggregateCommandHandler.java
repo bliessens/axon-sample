@@ -2,6 +2,7 @@ package be.cegeka.viogate.order;
 
 import be.cegeka.viogate.microbio.AddMicroBioSampleCommand;
 import be.cegeka.viogate.patient.PatientRepository;
+import org.axonframework.commandhandling.CommandMessage;
 import org.axonframework.commandhandling.annotation.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingRepository;
 import org.axonframework.repository.AggregateNotFoundException;
@@ -17,9 +18,10 @@ public class OrderAggregateCommandHandler {
     @Qualifier("orderAggregateEventSourcingRepository")
     private EventSourcingRepository<OrderAggregate> repository;
 
-    @CommandHandler
-    public void handle(final CreateOrderForVioNumberCommand command, final UnitOfWork work, final PatientRepository patientRepository) {
+    @CommandHandler(commandName = "be.cegeka.viogate.order.CreateOrderForVioNumberCommand")
+    public void handle(final CommandMessage<CreateOrderForVioNumberCommand> generic, final UnitOfWork work, final PatientRepository patientRepository) {
         System.out.println("Handling CreateOrderForVioNumberCommand");
+        CreateOrderForVioNumberCommand command = generic.getPayload();
         if (patientRepository.isPatient(command.getVioNumber())) {
             repository.add(new OrderAggregate(command.getOrderId(), command.getPrescriber(), command.getVioNumber()));
         }
