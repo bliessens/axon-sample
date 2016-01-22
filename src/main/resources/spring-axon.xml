@@ -7,6 +7,10 @@
 
     <axon:annotation-config/>
 
+    <bean class="org.axonframework.commandhandling.gateway.CommandGatewayFactoryBean">
+        <property name="commandBus" ref="commandBus"/>
+    </bean>
+
     <axon:command-bus id="commandBus" transaction-manager="transactionManager"/>
 
     <!--<bean id="asyncCommandBus" class="org.axonframework.commandhandling.AsynchronousCommandBus" destroy-method="shutdown">-->
@@ -38,10 +42,14 @@
 
     <!--<axon:filesystem-event-store id="eventStore" base-dir="events"/>-->
 
-    <axon:jpa-event-store id="jpaEventStore" data-source="jpaDataSource"/>
+    <beans profile="!json">
+        <axon:jpa-event-store id="jpaEventStore" data-source="jpaDataSource"/>
+    </beans>
 
-    <bean class="org.axonframework.commandhandling.gateway.CommandGatewayFactoryBean">
-        <property name="commandBus" ref="commandBus"/>
-    </bean>
+    <beans profile="json">
+        <axon:jpa-event-store id="jpaEventStore" data-source="jpaDataSource" event-serializer="jsonEventSerializer"/>
+
+        <bean id="jsonEventSerializer" class="org.axonframework.serializer.json.JacksonSerializer"/>
+    </beans>
 
 </beans>

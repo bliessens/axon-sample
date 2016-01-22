@@ -35,7 +35,7 @@ import static org.assertj.core.api.Assertions.assertThat;
         "classpath:/spring-context.xml",
         "classpath:/spring-axon.xml"
 })
-@ActiveProfiles({"hsqldb"})
+@ActiveProfiles({"mariadb"})
 public class OrderAggregateIntegrationTest {
 
     @Autowired
